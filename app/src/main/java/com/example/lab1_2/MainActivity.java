@@ -1,5 +1,6 @@
 package com.example.lab1_2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -17,7 +18,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mShowCount = (TextView) findViewById(R.id.show_count);
+
+        if(savedInstanceState != null){
+            mCount = savedInstanceState.getInt("count");
+            if(mShowCount != null){
+                mShowCount.setText(Integer.toString(mCount));
+            }
+        }
     }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("count", mCount);
+    }
+
+
     public void showToast(View view){
         Toast toast = Toast.makeText(this, R.string.toast_message,
                                     Toast.LENGTH_SHORT);
